@@ -66,7 +66,7 @@ app.post('/compress', authMiddleware, upload.single('file'), async (req, res) =>
     const fileBaru = await prisma.file.create({
       data: {
         nama: req.body.nama,
-        ukuran_file: hasilCompress,
+        ukuran_file: hasilCompress.size,
         id_kelas: req.body.kelas
       }
     })
