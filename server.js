@@ -67,7 +67,7 @@ app.post('/compress', authMiddleware, upload.single('file'), async (req, res) =>
       data: {
         nama: req.body.nama,
         ukuran_file: hasilCompress.size,
-        id_kelas: req.body.kelas
+        id_kelas: Number(req.body.kelas)
       }
     })
 
