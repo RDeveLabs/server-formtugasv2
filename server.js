@@ -135,9 +135,10 @@ async function compressWithLovePDF(filePath, originalName, kelas) {
   );
  
   // ── Step 5: Download hasil dan simpan ke folder results/ ──
-  fs.mkdirSync("results", { recursive: true }); // buat folder kalau belum ada
+  const output = `result/${kelas}`
+  fs.mkdirSync(output, { recursive: true }); // buat folder kalau belum ada
  
-  const outputPath = `results/${kelas}/${originalName}`;
+  const outputPath = `${output}/${originalName}`;
   const downloadRes = await axios.get(
     `https://${server}/v1/download/${taskId}`,
     {
