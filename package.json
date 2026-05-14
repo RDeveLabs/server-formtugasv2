@@ -1,0 +1,25 @@
+{
+  "name": "belajar_server",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@prisma/adapter-mariadb": "^6.19.3",
+    "@prisma/client": "^6.19.3",
+    "axios": "^1.14.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "form-data": "^4.0.5",
+    "fs": "^0.0.1-security",
+    "multer": "^2.1.1",
+    "prisma": "^6.19.3"
+  }
+}
