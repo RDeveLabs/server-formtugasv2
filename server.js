@@ -60,7 +60,8 @@ app.post('/compress', authMiddleware, upload.single('file'), async (req, res) =>
     // compress dulu
     const hasilCompress = await compressWithLovePDF(
       req.file.path, 
-      req.file.originalname
+      req.file.originalname,
+      req.body.kelas
     )
 
     const fileBaru = await prisma.file.create({
@@ -85,7 +86,7 @@ app.post('/compress', authMiddleware, upload.single('file'), async (req, res) =>
 
 });
 
-async function compressWithLovePDF(filePath, originalName) {
+async function compressWithLovePDF(filePath, originalName, kelas) {
   const PUBLIC_KEY = process.env.LOVEPDF_PUBLIC_KEY;
  
   // ── Step 1: Autentikasi ke LovePDF, dapat token JWT ──
@@ -136,7 +137,7 @@ async function compressWithLovePDF(filePath, originalName) {
   // ── Step 5: Download hasil dan simpan ke folder results/ ──
   fs.mkdirSync("results", { recursive: true }); // buat folder kalau belum ada
  
-  const outputPath = `results/${originalName}`;
+  const outputPath = `results/${kelas}/${originalName}`;
   const downloadRes = await axios.get(
     `https://${server}/v1/download/${taskId}`,
     {
