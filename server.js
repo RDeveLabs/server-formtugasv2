@@ -180,7 +180,7 @@ app.get("/data", authMiddleware, async (req, res) => {
   });
   res.status(200).json({
     status: "ok",
-    file: [file],
+    file: file,
   });
 });
 
