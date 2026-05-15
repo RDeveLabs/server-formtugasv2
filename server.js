@@ -162,7 +162,9 @@ app.post(
 );
 
 app.get("/data", authMiddleware, async (req, res) => {
+  const {id_kelas} = req.query;
   const file = await prisma.file.findMany({
+    where: id_kelas ? {id_kelas:Number(id_kelas)} : {},
     select: {
       id: true,
       nama: true,
