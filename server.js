@@ -159,16 +159,18 @@ app.post('/compress', authMiddleware, upload.single('file'), async (req, res) =>
 });
 
 app.get('/data', authMiddleware, (req, res) => {
-  res.json({
-    id: 1,
-    nama: "Raihan Arrasyid Monadika",
-    nim: 312510206,
-    kelas: "I251B",
-    dari_pertemuan: 1,
-    sampai_pertemuan: 8,
-    ukuran: 32,
-    waktu: 150526
-  });
+  res.json([
+    {
+      id: 1,
+      nama: "Raihan Arrasyid Monadika",
+      nim: 312510206,
+      kelas: "I251B",
+      dari_pertemuan: 1,
+      sampai_pertemuan: 8,
+      ukuran: 32,
+      waktu: 150526
+    }
+  ]);
 })
 
 
