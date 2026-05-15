@@ -178,7 +178,7 @@ app.get('/data', authMiddleware, (req, res) => {
 
 app.get('/database', async (req, res) => {
   const file = await prisma.file.findMany();
-  console.log(file);
+  res.json(file);
 })
 
 
