@@ -158,7 +158,7 @@ app.post('/compress', authMiddleware, upload.single('file'), async (req, res) =>
 
 });
 
-app.post('/data', authMiddleware, async (req, res) => {
+app.post('/data', (req, res) => {
   res.json({data: "Data berjalan"});
 })
 
