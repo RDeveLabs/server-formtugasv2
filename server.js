@@ -167,7 +167,7 @@ app.get("/data", authMiddleware, async (req, res) => {
       id: true,
       nama: true,
       nim: true,
-      id_kelas: {
+      kelas: {
         select: {
           kelas: true
         }
