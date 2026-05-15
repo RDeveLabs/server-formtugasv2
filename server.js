@@ -21,17 +21,8 @@ const upload = multer({
     cb(null, true); // null = tidak ada error, true = terima file
   },
 });
+
 const app = express();
-
-app.use(cors({
-  origin: "https://www.rdevelabs.com",
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type", "x-rdl"]
-}));
-
-app.get('/', (req, res) => {
-  res.json({ status: 'Server jalan! kereennnn' });
-});
 
 function authMiddleware(req, res, next) {
   const apiKey = req.headers['x-rdl'];
@@ -42,53 +33,6 @@ function authMiddleware(req, res, next) {
 
   return next();
 }
-
-
-app.post('/compress', authMiddleware, upload.single('file'), async (req, res) => {
-
-  if (!req.file) {
-    return res.status(400).json({ error: 'file tidak ditemukan' });
-  }
-  // console.log("file req : ", req);
-  // console.log("file req file: ", req.file);
-  console.log("file req nama: ", req.body.nama);
-  console.log("file req nim: ", req.body.nim);
-  console.log("file req kelas: ", req.body.kelas);
-  console.log("file req dari pertemuan: ", req.body.dariPertemuan);
-  console.log("file req sampai pertemuan: ", req.body.sampaiPertemuan);
-
-  try {
-    // compress dulu
-    const hasilCompress = await compressWithLovePDF(
-      req.file.path, 
-      req.file.originalname,
-      req.body.kelas
-    )
-
-    const fileBaru = await prisma.file.create({
-      data: {
-        nama: req.body.nama,
-        ukuran_file: hasilCompress.size,
-        id_kelas: Number(req.body.kelas),
-        nim: Number(req.body.nim),
-        dari_pertemuan: Number(req.body.dariPertemuan),
-        sampai_pertemuan: Number(req.body.sampaiPertemuan)
-      }
-    })
-
-    res.json({ status: 'ok', file: fileBaru })
-
-    
-} catch (e) {
-    console.error(e)
-    res.status(500).json({ error: 'Gagal memproses file' })
-    prisma.$disconnect();
-} finally {
-    fs.unlink(req.file.path, () => {})
-    prisma.$disconnect();
-}
-
-});
 
 async function compressWithLovePDF(filePath, originalName, kelas) {
   const PUBLIC_KEY = process.env.LOVEPDF_PUBLIC_KEY;
@@ -156,5 +100,69 @@ async function compressWithLovePDF(filePath, originalName, kelas) {
  
   return ukuranFile;
 }
+
+app.use(cors({
+  origin: ["https://form.rdevelabs.com", "https://rekap.rdevelabs.com"],
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "x-rdl"]
+}));
+
+app.get('/', (req, res) => {
+  res.json({ status: 'Server jalan! kereennnn' });
+});
+
+
+app.post('/compress', authMiddleware, upload.single('file'), async (req, res) => {
+
+  if (!req.file) {
+    return res.status(400).json({ error: 'file tidak ditemukan' });
+  }
+  // console.log("file req : ", req);
+  // console.log("file req file: ", req.file);
+  console.log("file req nama: ", req.body.nama);
+  console.log("file req nim: ", req.body.nim);
+  console.log("file req kelas: ", req.body.kelas);
+  console.log("file req dari pertemuan: ", req.body.dariPertemuan);
+  console.log("file req sampai pertemuan: ", req.body.sampaiPertemuan);
+
+  try {
+    // compress dulu
+    const hasilCompress = await compressWithLovePDF(
+      req.file.path, 
+      req.file.originalname,
+      req.body.kelas
+    )
+
+    const fileBaru = await prisma.file.create({
+      data: {
+        nama: req.body.nama,
+        ukuran_file: hasilCompress.size,
+        id_kelas: Number(req.body.kelas),
+        nim: Number(req.body.nim),
+        dari_pertemuan: Number(req.body.dariPertemuan),
+        sampai_pertemuan: Number(req.body.sampaiPertemuan)
+      }
+    })
+
+    res.json({ status: 'ok', file: fileBaru })
+
+    
+} catch (e) {
+    console.error(e)
+    res.status(500).json({ error: 'Gagal memproses file' })
+    prisma.$disconnect();
+} finally {
+    fs.unlink(req.file.path, () => {})
+    prisma.$disconnect();
+}
+
+});
+
+app.post('/data', authMiddleware, async (req, res) => {
+  res.json({data: "Data berjalan"});
+})
+
+
+
 console.log("Server on");
 app.listen(3000);
