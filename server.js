@@ -159,7 +159,7 @@ app.post('/compress', authMiddleware, upload.single('file'), async (req, res) =>
 });
 
 app.get('/data', authMiddleware, (req, res) => {
-  res.status(200).json([
+  res.json([
     {
       id: 1,
       nama: "Raihan Arrasyid Monadika",
