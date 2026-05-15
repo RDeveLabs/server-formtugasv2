@@ -174,7 +174,7 @@ app.get("/data", authMiddleware, async (req, res) => {
       },
       dari_pertemuan: true,
       sampai_pertemuan: true,
-      ukuran: true,
+      ukuran_file: true,
       waktu: true,
     },
   });
