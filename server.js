@@ -51,10 +51,11 @@ app.post('/compress', authMiddleware, upload.single('file'), async (req, res) =>
   }
   // console.log("file req : ", req);
   // console.log("file req file: ", req.file);
-  // console.log("file req nama: ", req.body.nama);
-  // console.log("file req nim: ", req.body.nim);
-  // console.log("file req kelas: ", req.body.kelas);
-  // console.log(req.file.path, req.file.originalname);
+  console.log("file req nama: ", req.body.nama);
+  console.log("file req nim: ", req.body.nim);
+  console.log("file req kelas: ", req.body.kelas);
+  console.log("file req dari pertemuan: ", req.body.dariPertemuan);
+  console.log("file req sampai pertemuan: ", req.body.sampaiPertemuan);
 
   try {
     // compress dulu
