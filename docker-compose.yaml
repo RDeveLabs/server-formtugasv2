@@ -15,7 +15,7 @@ services:
 
   server:
     build: .
-    restart: always
+    # restart: always
     volumes:
       - ./:/belajar
       - /belajar/node_modules
