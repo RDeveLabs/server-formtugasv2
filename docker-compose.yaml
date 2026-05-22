@@ -12,6 +12,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - databaseNetwork
 
   server:
     build: .
@@ -29,3 +31,9 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - DATABASE=${DATABASE}
+    networks:
+      - databaseNetwork
+
+networks:
+  databaseNetwork: 
+    external: true
