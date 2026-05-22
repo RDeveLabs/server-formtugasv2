@@ -26,11 +26,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      - DB_HOST=${DB_HOST}
-      - DB_USER=${DB_USER}
-      - DB_PASS=${DB_PASS}
-      - DATABASE=${DATABASE}
     networks:
       - databaseNetwork
 
