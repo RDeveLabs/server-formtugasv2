@@ -18,10 +18,8 @@ model file {
   id Int @id @default(autoincrement())
   nama String 
   nim Int
-  dari_pertemuan Int
-  sampai_pertemuan Int
+  pertemuan Int
   waktu DateTime @default(now())
-  ukuran_file Int?
   kelas kelas @relation(fields: [id_kelas], references: [id])
   id_kelas Int
 }

@@ -127,8 +127,7 @@ app.post(
     console.log("file req nama: ", req.body.nama);
     console.log("file req nim: ", req.body.nim);
     console.log("file req kelas: ", req.body.kelas);
-    console.log("file req dari pertemuan: ", req.body.dariPertemuan);
-    console.log("file req sampai pertemuan: ", req.body.sampaiPertemuan);
+    console.log("file req pertemuan: ", req.body.pertemuan);
 
     try {
       // compress dulu
@@ -141,11 +140,9 @@ app.post(
       const fileBaru = await prisma.file.create({
         data: {
           nama: req.body.nama,
-          ukuran_file: hasilCompress.size,
           id_kelas: Number(req.body.kelas),
           nim: Number(req.body.nim),
-          dari_pertemuan: Number(req.body.dariPertemuan),
-          sampai_pertemuan: Number(req.body.sampaiPertemuan),
+          pertemuan: Number(req.body.pertemuan),
         },
       });
 
@@ -178,9 +175,7 @@ app.get("/data", authMiddleware, async (req, res) => {
           kelas: true
         }
       },
-      dari_pertemuan: true,
-      sampai_pertemuan: true,
-      ukuran_file: true,
+      pertemuan: true,
       waktu: true,
     },
   });
