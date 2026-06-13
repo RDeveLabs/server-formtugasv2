@@ -150,7 +150,10 @@ app.post(
       res.json({ status: "ok", file: fileBaru });
     } catch (e) {
       console.error(e);
-      res.status(500).json({ error: "Gagal memproses file" });
+      if (e.code === 'P2002'){
+        return res.status(500).json({ error: "duplikat" });
+      }
+      return res.status(500).json({ error: "Gagal memproses file" });
       prisma.$disconnect();
     } finally {
       fs.unlink(req.file.path, () => {});
