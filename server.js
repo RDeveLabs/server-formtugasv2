@@ -136,13 +136,14 @@ app.post(
         req.file.originalname,
         req.body.kelas,
       );
+      
 
       const fileBaru = await prisma.file.create({
         data: {
           nama: req.body.nama,
           id_kelas: Number(req.body.kelas),
           nim: Number(req.body.nim),
-          pertemuan: Number(req.body.pertemuan),
+          pertemuan: req.body.pertemuan,
         },
       });
 

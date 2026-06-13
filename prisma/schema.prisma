@@ -18,7 +18,7 @@ model file {
   id Int @id @default(autoincrement())
   nama String 
   nim Int
-  pertemuan Int
+  pertemuan String
   waktu DateTime @default(now())
   kelas kelas @relation(fields: [id_kelas], references: [id])
   id_kelas Int
